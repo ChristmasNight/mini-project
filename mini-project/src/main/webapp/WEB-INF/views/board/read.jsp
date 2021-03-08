@@ -1,51 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<html>
-	<head>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	 	<title>게시판</title>
-	</head>
 	
-	<script type="text/javascript">
-		$(document).ready(function(){
-			var formObj = $("form[name='readForm']");
-			
-			// 수정 
-			$(".update_btn").on("click", function(){
-				//.attr()은 요소(element)의 속성(attribute)의 값을 가져오거나 속성을 추가합니다. 여기선 추가!
-				formObj.attr("action", "/board/updateView");
-				formObj.attr("method", "get");
-				formObj.submit();				
-			})
-			
-			// 삭제
-			$(".delete_btn").on("click", function(){
-				formObj.attr("action", "/board/delete");
-				formObj.attr("method", "post");
-				formObj.submit();
-			})
-			
-			// 취소
-			$(".list_btn").on("click", function(){				
-				location.href = "/board/list";
-			})
-		})
-	</script>
-	
-	<body>
-	
-		<div id="root">
-			<header>
-				<h1> 게시판</h1>
-			</header>
-			<hr />
-			 
-			<nav>
-			  홈 - 글 작성
-			</nav>
-			<hr />
-			
+<%@include file="nav.jsp" %>			 
+		 홈 - 글 작성			
 			<section id="container">
 				<form name="readForm" role="form" method="post">
 					<input type="hidden" id="bno" name="bno" value="${read.bno}" />
@@ -84,4 +42,33 @@
 			<hr />
 		</div>
 	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var formObj = $("form[name='readForm']");
+			
+			// 수정 
+			$(".update_btn").on("click", function(){
+				//.attr()은 요소(element)의 속성(attribute)의 값을 가져오거나 속성을 추가합니다. 여기선 추가!
+				formObj.attr("action", "/board/updateView");
+				formObj.attr("method", "get");
+				formObj.submit();				
+			})
+			
+			// 삭제
+			$(".delete_btn").on("click", function(){
+				var deleteYN=confirm("삭제하시겠습니까?");
+				if(deleteYN==true){				
+				
+				formObj.attr("action", "/board/delete");
+				formObj.attr("method", "post");
+				formObj.submit();
+				}
+			})
+			
+			// 취소
+			$(".list_btn").on("click", function(){				
+				location.href = "/board/list";
+			})
+		})
+	</script>
 </html>

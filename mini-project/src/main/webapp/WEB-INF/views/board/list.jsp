@@ -1,19 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<html>
-	<head>
-	 	<title>게시판</title>
-	</head>
-	<body>
-		<div id="root">
-			<header>
-				<h1> 게시판</h1>
-			</header>
-			<hr />		
-			
-			<hr />
-			
+					
+	
+<%@include file="nav.jsp" %>			
 			<section id="container">
 				<form role="form" method="post" action="/board/write">
 					<table>
@@ -31,6 +21,21 @@
 						</c:forEach>
 						
 					</table>
+						<div>
+						  <ul>
+						    <c:if test="${pageMaker.prev}">
+						    	<li><a href="prev">이전</a></li>
+						    </c:if> 
+						
+						    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+						    	<li><a href="list${pageMaker.makeQuery(idx)}">${idx}</a></li>
+						    </c:forEach>
+						
+						    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+						    	<li><a href="next">다음</a></li>
+						    </c:if> 
+						  </ul>
+						</div>										
 				</form>
 			</section>
 			<hr />

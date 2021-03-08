@@ -1,22 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<html>
-	<head>
-	 	<title>게시판</title>
-	</head>
-	<body>
-	
-		<div id="root">
-			<header>
-				<h1> 게시판</h1>
-			</header>
-			<hr />
-			 
-			<nav>
-			  홈 - 글 작성
-			</nav>
-			<hr />
-			
+
+<%@include file="nav.jsp" %>		
+			  홈 - 글 작성			
 			<section id="container">
 				<form role="form" method="post" action="/board/write">
 					<table>

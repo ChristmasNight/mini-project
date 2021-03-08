@@ -14,10 +14,37 @@
    </insert>
    
     <!-- 게시판 목록 -->   
-   <select id="list" resultType="com.nxon.vo.BoardVO">
-	   	select * from mp_board
-	   		order by bno desc   
-   </select>
+   	<select id="listPage" resultType="com.nxon.vo.BoardVO" parameterType="com.nxon.vo.Criteria">
+		SELECT  BNO, 
+		        TITLE, 
+		        CONTENT,
+		        WRITER, 
+		        REGDATE
+		 FROM ( 
+		        SELECT BNO, 
+		               TITLE, 
+		               CONTENT, 
+		               WRITER, 
+		               REGDATE, 
+		               ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM
+		         FROM MP_BOARD 
+		                       ) MP
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY BNO DESC
+	</select>
+	
+	<!-- 게시물 총 갯수 -->
+	<!--  [ ] 안에 있는 문장은 파싱되지 않고 그대로 문자열로 출력된다. -->
+	<select id="listCount" resultType="int">
+		<![CDATA[
+			SELECT COUNT(BNO)
+			  FROM MP_BOARD
+			 WHERE BNO > 0
+		]]>
+	</select>
+	
+   <!-- 이전글, 다음글 -->
+   
    
    <!-- 게시판 상세보기 -->   
    <select id="read" parameterType="int" resultType="com.nxon.vo.BoardVO">

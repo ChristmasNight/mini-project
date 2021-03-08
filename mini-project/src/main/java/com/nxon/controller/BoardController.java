@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.nxon.service.BoardService;
 import com.nxon.vo.BoardVO;
+import com.nxon.vo.Criteria;
 
 @Controller
 @RequestMapping("/board/*")
@@ -37,9 +38,9 @@ public class BoardController {
 	
 	// 게시판 글 목록
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model) throws Exception{
+	public String list(Model model, Criteria cri) throws Exception{
 		logger.info("list");		
-		model.addAttribute("list", service.list());
+		model.addAttribute("list", service.list(cri));
 		return "board/list";
 	}
 	
